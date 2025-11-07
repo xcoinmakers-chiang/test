@@ -19,6 +19,7 @@ jobs:
             build_for_ios: ${{ steps.build_number.outputs.VERSION_CODE }}
             build_for_android: ${{ steps.build_number.outputs.VERSION_CODE }}
         steps:
+            - uses: actions/checkout@v4
             - name: ビルド番号の生成
               id: build_number
               run: |
