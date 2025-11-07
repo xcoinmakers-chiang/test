@@ -1,0 +1,20 @@
+name: Deploy App 
+on:
+    pull_request:
+        types:
+        - labeled
+        branches:
+        - main
+        - release/testing
+
+jobs:
+    check:
+        # 起動条件: プルリクエストが "deploy" ラベルを持っている場合にのみ実行
+        if: >-
+            github.event.pull_request.draft == false
+            && contains(github.event.pull_request.labels.*.name, 'deploy')
+        runs-on: ubuntu-slim
+        timeout-minutes: 10
+        steps:
+        - name: Deploy Application
+          run: echo "Deploying application..."
