@@ -63,6 +63,6 @@ jobs:
             - name: Create PR comment
             #   if: ${{ steps.test.outcome == 'failure' && inputs.enable_pr_comment == true }}
               run: |
-                gh --version
+                gh pr comment ${{ github.event.pull_request.number }} --body-file comment.md
               env:
                 GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
