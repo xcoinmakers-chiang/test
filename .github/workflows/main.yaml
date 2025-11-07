@@ -54,10 +54,20 @@ jobs:
                 echo "There was an error, we need to clear the previous Markdown with some new content." > $GITHUB_STEP_SUMMARY
             - name: Create comment file
             #   if: ${{ steps.test.outcome == 'failure' && inputs.enable_pr_comment == true }}
+              if: ${{ steps.test.outcome == 'failure' }}
               run: |
                 cat  << EOF > comment.md
                 ## Test Failed
                 The tests failed. Please check the logs for more information.
+                https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+                EOF
+            - name: Create comment file
+              if: ${{ steps.test.outcome == 'success' }}
+              run: |
+                cat  << EOF > comment.md
+                ## Test Passed
+                The tests passed successfully.
+                VERSION_CODE: ${{ steps.build_number.outputs.VERSION_CODE }}
                 https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
                 EOF
             - name: Create PR comment
