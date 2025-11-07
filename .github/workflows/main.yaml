@@ -7,6 +7,11 @@ on:
         - main
         - release/testing
 
+permissions:
+    contents: read
+    pull-requests: write
+    issues: write
+
 jobs:
     check:
         # 起動条件: プルリクエストが "deploy" ラベルを持っている場合にのみ実行
