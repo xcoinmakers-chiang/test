@@ -20,6 +20,15 @@ jobs:
             build_for_android: ${{ steps.build_number.outputs.VERSION_CODE }}
         steps:
             - uses: actions/checkout@v4
+            
+            - name: Generate GitHub App token
+              id: generate_token
+              uses: actions/create-github-app-token@v2
+              with:
+                app-id: ${{ secrets.APP_ID }}
+                private-key: ${{ secrets.PRIVATE_KEY }}
+                owner: ${{ github.repository_owner }}
+
             - name: ビルド番号の生成
               id: build_number
               run: |
@@ -39,4 +48,4 @@ jobs:
               run: |
                 gh pr comment ${{ github.event.number }} --body-file comment.md
               env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
