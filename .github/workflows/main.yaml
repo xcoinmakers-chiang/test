@@ -10,6 +10,7 @@ on:
 permissions:
     contents: read
     pull-requests: write
+    issues: write
 
 jobs:
     check:
@@ -32,6 +33,7 @@ jobs:
                 app-id: ${{ secrets.APP_ID }}
                 private-key: ${{ secrets.PRIVATE_KEY }}
                 owner: ${{ github.repository_owner }}
+                repositories: ${{ github.event.repository.name }}
 
             - name: ビルド番号の生成
               id: build_number
@@ -61,6 +63,6 @@ jobs:
             - name: Create PR comment
             #   if: ${{ steps.test.outcome == 'failure' && inputs.enable_pr_comment == true }}
               run: |
-                gh pr comment ${{ github.event.number }} --body-file comment.md
+                gh pr comment ${{ github.event.pull_request.number }} --body-file comment.md
               env:
-                GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+                GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
