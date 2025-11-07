@@ -10,7 +10,6 @@ on:
 permissions:
     contents: read
     pull-requests: write
-    issues: write
 
 jobs:
     check:
@@ -53,4 +52,4 @@ jobs:
               run: |
                 gh pr comment ${{ github.event.number }} --body-file comment.md
               env:
-                GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+                GH_TOKEN: ${{ steps.generate_token.outputs.token }}
