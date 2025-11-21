@@ -55,8 +55,9 @@ jobs:
             - name: Get PR description
               id: get_pr_description
               run: |
-                gh api --method GET repos/:owner/:repo/pulls -f 'state=open' | jq '.[] | .body'
-                echo "PR Description: ${{ steps.get_pr_description.outputs.body }}" --- IGNORE ---
+                DESCRIPTION=$(gh pr view ${{ github.event.pull_request.number }} --json body --jq .body)
+                REPLACED_DESCRIPTION=$(echo $DESCRIPTION | sed 's/\n/;;;:::;;;/g')
+                echo "replaced_description=$REPLACED_DESCRIPTION" >> $GITHUB_OUTPUT
             - name: Create comment file
             #   if: ${{ steps.test.outcome == 'failure' && inputs.enable_pr_comment == true }}
               if: ${{ steps.build_number.outcome == 'failure' }}
