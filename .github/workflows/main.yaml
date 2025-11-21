@@ -3,9 +3,7 @@ on:
     pull_request_target:
         types:
         - labeled
-        branches:
-        - test
-        - release/testing
+
 
 permissions:
     contents: read
