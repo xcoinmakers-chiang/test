@@ -58,6 +58,9 @@ jobs:
                 DESCRIPTION=$(gh pr view ${{ github.event.pull_request.number }} --json body --jq .body)
                 REPLACED_DESCRIPTION=$(echo $DESCRIPTION | sed 's/\n/;;;:::;;;/g')
                 echo "replaced_description=$REPLACED_DESCRIPTION" >> $GITHUB_OUTPUT
+              env:
+                GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+              
             - name: Create comment file
             #   if: ${{ steps.test.outcome == 'failure' && inputs.enable_pr_comment == true }}
               if: ${{ steps.build_number.outcome == 'failure' }}
