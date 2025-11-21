@@ -41,13 +41,14 @@ jobs:
                 VERSION_CODE=$(expr $(date +%s) / 10)
                 echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
                 echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
-            - name: Generate list using Markdown
+
+            - name: Action の check summary に記事
               run: |
-                echo "This is the lead in sentence for the list" >> $GITHUB_STEP_SUMMARY
+                echo "VERSION_CODE: ${{ steps.build_number.outputs.VERSION_CODE }}" >> $GITHUB_STEP_SUMMARY
                 echo "" >> $GITHUB_STEP_SUMMARY # this is a blank line
-                echo "- Lets add a bullet point" >> $GITHUB_STEP_SUMMARY
-                echo "- Lets add a second bullet point" >> $GITHUB_STEP_SUMMARY
-                echo "- How about a third one?" >> $GITHUB_STEP_SUMMARY
+                echo "### リリースノート" >> $GITHUB_STEP_SUMMARY
+                echo "---" >> $GITHUB_STEP_SUMMARY
+                echo "${{steps.get_pr_description.outputs.replaced_description}}" >> $GITHUB_STEP_SUMMARY
             - name: Overwrite Markdown
               run: |
                 echo "Adding some Markdown content" >> $GITHUB_STEP_SUMMARY
