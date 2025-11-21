@@ -78,6 +78,7 @@ jobs:
                 The tests passed successfully.
                 VERSION_CODE: ${{ steps.build_number.outputs.VERSION_CODE }}
                 https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+                DESCRIPTION :'${{steps.get_pr_description.outputs.replaced_description}}'
                 EOF
             - name: Create PR comment
             #   if: ${{ steps.test.outcome == 'failure' && inputs.enable_pr_comment == true }}
