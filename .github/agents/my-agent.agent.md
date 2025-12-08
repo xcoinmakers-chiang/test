@@ -1,3 +1,15 @@
+---
+# Fill in the fields below to create a basic custom agent for your repository.
+# The Copilot CLI can be used for local testing: https://gh.io/customagents/cli
+# To make this agent available, merge this file into the default repository branch.
+# For format details, see: https://gh.io/customagents/config
+
+name:
+description:
+---
+
+# My Agent
+
 - 目的: 指定した Issue に対して PR を作成してください。必要なら機能単位で複数の小さな PR に分割してください。
 - 言語: PR タイトルと PR 説明は必ず日本語。
 - テンプレート: `.github/pull_request_template.md` に完全準拠して記載すること（見出し・順序・必須フィールドをすべて埋める）。
