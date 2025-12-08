@@ -4,8 +4,8 @@
 # To make this agent available, merge this file into the default repository branch.
 # For format details, see: https://gh.io/customagents/config
 
-name:
-description:
+name:PR
+description:Issue に対して PR を作成
 ---
 
 # My Agent
